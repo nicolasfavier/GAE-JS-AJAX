@@ -19,7 +19,7 @@
       <!-- ------------------------------------------- HEADER ZONE ------------------------------------------- -->
       <nav class="navbar navbar-inverse" role="navigation">
         <div class=" col-md-10 col-sm-10 col-xs-10 ">
-            <form class="navbar-form navbar-left"  style="width:100%" role="search">
+            <form class="navbar-form navbar-left"  style="width:100%" role="search" method="GET" action="ha-search-screen.html">
                  <button type="submit" class="btn btn-link " style="margin:0px,padding:0px"><span class="glyphicon glyphicon-arrow-left "></span> </button>
                  <label> <h5 style="color:white"> Add a Training Plan</h5></label>
           </form>
@@ -41,7 +41,7 @@
                 <label for="inputTitle">Title</label>  
              </div>
             <div class=" col-md-6 col-sm-6 col-xs-12 ">
-                <input type="email" class="form-control" id="inputTitle" placeholder="Enter your Training plan title">
+                <input class="form-control" id="inputTitle" placeholder="Enter your Training plan title">
              </div>
               <div class=" col-md-3 col-sm-4 hidden-xs">
                   <div class=" col-md-4 col-sm-4 hidden-xs">
@@ -92,7 +92,7 @@
                         <label for="titleDescription">Ex. Title</label>  
                     </div>
                     <div class=" col-md-6 col-sm-6 col-xs-12 ">
-                        <input type="email" class="form-control" id="titleDescription" placeholder="Enter your exercice title">
+                        <input class="form-control" id="titleDescription" placeholder="Enter your exercice title">
                     </div>
                     <div class=" col-md-2 col-sm-4 col-xs-12 ">
                         <div class="input-group">
@@ -154,12 +154,12 @@
     <div class=" col-md-10 ol-sm-5 col-xs-0 " ></div>
     <div class=" col-md-2 ol-sm-5 col-xs-12 text-center" >
         <button type="submit" class="btn btn-danger btn-sm"> <span class="glyphicon glyphicon-remove"></span> </button>
-        <button type="submit" class="btn btn-success btn-lg"> <span class="glyphicon glyphicon-ok"></span> </button>
     </div>
 
  
 </form>
    
+           <button class="btn btn-success btn-lg" id="btnCreateTraining"> <span class="glyphicon glyphicon-ok"></span> </button>
       
       
       <!-- ------------------------------------------- FOOTER ZONE ------------------------------------------- -->
@@ -177,6 +177,7 @@
     <script src="js/jquery-1.11.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/myCode.js"></script>    
     <script src="lib/select2-3.5.1/select2.min.js"></script>
     <script>
         $(document).ready(function() { $("#e1").select2(); });

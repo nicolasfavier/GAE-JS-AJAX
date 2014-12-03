@@ -11,3 +11,19 @@ $(document).ready(function(){
     		  });
   		});
 });
+
+$(document).ready(function(){
+	  $("#btnCreateTraining").click(function(){
+		  	$.post("/trainning",
+	    		  {
+	    		    title:$("#inputTitle").val(),
+	    		    description:$("#inputDescription").val(),
+	    		    expectedTime:$("#totalTimeValue").val(),
+	    		    kind:$("#e1").val()
+	    		    
+	    		  },
+	    		  function(data,status){
+	    		    alert("Post Done new training added");
+	    		  });
+	  		});
+	});

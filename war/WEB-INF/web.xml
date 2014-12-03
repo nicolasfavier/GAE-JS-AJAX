@@ -16,6 +16,16 @@
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>trainning</servlet-name>
+    <servlet-class>servlet.communication.TrainningServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>trainning</servlet-name>
+    <url-pattern>/trainning</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>form.html</welcome-file>
