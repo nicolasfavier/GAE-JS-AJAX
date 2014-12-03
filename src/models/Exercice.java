@@ -2,18 +2,12 @@ package models;
 
 public class Exercice {
 	
+	private String key;
 	private String title;
 	private String description;
 	private int duration;
 	private int repetition;
-	private boolean finish;
 	
-	public boolean isFinish() {
-		return finish;
-	}
-	public void setFinish(boolean finish) {
-		this.finish = finish;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -22,6 +16,12 @@ public class Exercice {
 	}
 	public String getDescription() {
 		return description;
+	}
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
 	}
 	public void setDescription(String description) {
 		this.description = description;
@@ -42,13 +42,13 @@ public class Exercice {
 	public Exercice(){
 	}
 	
-	public Exercice(String title, String description, int duration,
-			int repetition, boolean finish) {
+	public Exercice(String key, String title, String description, int duration,
+			int repetition) {
 		super();
+		this.key = key;
 		this.title = title;
 		this.description = description;
 		this.duration = duration;
 		this.repetition = repetition;
-		this.finish = finish;
 	}
 }
