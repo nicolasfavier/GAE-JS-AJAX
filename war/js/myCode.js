@@ -1,6 +1,5 @@
 var listExo = new Array();
-var totalTimeh = 0;
-var totalTimem = 0;
+var id = 0;
 
 $(document).ready(function(){
   $("#btnCommitId").click(function(){
@@ -56,34 +55,65 @@ $(document).ready(function(){
 				duration : time
 			};
 		
-		listExo.push(exercice);
-		addExerciseInHTML(exercice);
+		var exerciceWraper = {
+				exercice : exercice,
+				id : id
+		}
 		
-		totalTimem += m;
-		totalTimeh += h;
+		id+=1;
 		
-		while (totalTimem > 59)
-			{
-				totalTimem -= 60;
-				totalTimeh += 1;
-			}
-			
-		var showTotalTime = totalTimeh + " : " + totalTimem;
-		 $("#totalTimeValue").html(showTotalTime);
-		
+		listExo.push(exerciceWraper);
+		addExerciseInHTML(exerciceWraper);
+		updateTime();
    });
 });	  
 
-function addExerciseInHTML( exercice){
+function addExerciseInHTML( exerciceWraper){
 	
-	$( "#tabExercises" ).append( "<tr>"+
-			"<td>"+ exercice.title + "</td>"+
-			'<td class="hidden-xs"><p>'+ exercice.description + "</p></td>"+
-			"<td>"+ exercice.duration +" min</td>"+
-			'<td> <button type="submit" class="btn btn-danger btn-sm"> <span class="glyphicon glyphicon-remove"></span> </button></td>'+
+	$( "#tabExercises" ).append( '<tr id="message'+ exerciceWraper.id +'">'+
+			"<td>"+ exerciceWraper.exercice.title + "</td>"+
+			'<td class="hidden-xs"><p>'+ exerciceWraper.exercice.description + "</p></td>"+
+			"<td>"+ exerciceWraper.exercice.duration +" min</td>"+
+			'<td> <button  onClick="deleteExercice('+ exerciceWraper.id +')" class="btn btn-danger btn-sm"> <span class="glyphicon glyphicon-remove"></span> </button></td>'+
 			"</tr>" );
 }
 
+function updateTime(){ 
+
+	var totalTimeM =0;
+	var totalTimeH =0;
+	
+	$.each( listExo, function( key, exerciceWraper ) {
+		totalTimeM += exerciceWraper.exercice.duration;
+	});
+	
+	while (totalTimeM > 59)
+	{
+		totalTimeM -= 60;
+		totalTimeH += 1;
+	}
+	
+	var showTotalTime = totalTimeH + " : " + totalTimeM;
+	$("#totalTimeValue").html(showTotalTime);
+	
+}
+
+function deleteExercice(id){ 
+	var del;
+	
+	$.each( listExo, function( key, exerciceWraper ) {
+	        if(exerciceWraper.id === id){
+	        	del = exerciceWraper;       	
+	        }
+		});
+	
+	listExo = jQuery.grep(listExo, function(value) {
+		  return value != del;
+		});
+	
+	$( "#message" + id ).remove();
+	updateTime();
+};
 /*
 $(document).ready(function(){
 	  $("#btnCreateTraining").click(function(){
