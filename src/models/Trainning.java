@@ -3,17 +3,37 @@ package models;
 import java.util.Date;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 
 
 public class Trainning {
 		public enum Kind {
-		  RUN,
-		  FITNESS,
-		  SIMMING,
-		  TENNIS;	
+		  @SerializedName("Running")
+		  RUNNING("Running"),
+		  
+		  @SerializedName("Fitness")
+		  FITNESS("Fitness"),
+		  
+		  @SerializedName("Swimming")
+		  SWIMMING("Swimming"),
+		  
+		  @SerializedName("Tennis")
+		  TENNIS("Tennis");
+		  
+		   private final String value;
+		   public String getValue() {
+		        return value;
+		   }
+
+		   private Kind(String value) {
+		        this.value = value;
+		   }
 		}
 	
 		private Date date;
+		private String title;
+		private String description;
 		private int expectedTime;
 		private Kind kind;
 		private List<Exercice> exercices;
@@ -30,6 +50,24 @@ public class Trainning {
 		public Date getDate() {
 			return date;
 		}
+		
+		
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
+		}
+
 		public void setDate(Date date) {
 			this.date = date;
 		}
@@ -52,12 +90,14 @@ public class Trainning {
 			this.exercices = exercices;
 		}
 		public Trainning(Date date, int expectedTime, Kind kind,
-				List<Exercice> exercices, String key) {
+				List<Exercice> exercices, String key, String title, String description) {
 			super();
 			this.date = date;
 			this.expectedTime = expectedTime;
 			this.kind = kind;
 			this.exercices = exercices;
 			this.key = key;
+			this.title = title;
+			this.description = description;
 		}
 }

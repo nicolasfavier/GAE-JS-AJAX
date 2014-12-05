@@ -26,9 +26,19 @@
     <url-pattern>/trainning</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>welcome</servlet-name>
+    <servlet-class>servlet.communication.WelcomeServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>welcome</servlet-name>
+    <url-pattern>/welcome</url-pattern>
+  </servlet-mapping>  
+  
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>form.html</welcome-file>
+    <welcome-file>index.html</welcome-file>
   </welcome-file-list>
 
 </web-app>
