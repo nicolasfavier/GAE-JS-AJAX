@@ -13,6 +13,31 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+	$("#btnCreateTraining").click(function(){
+		
+		var trainning = {
+				title : $("#inputTitle").val(),
+				description : $("#inputDescription").val(),
+				expectedTime : 20,
+				kind : $("#e1").val()
+			};
+		
+		$.ajax({
+			  type: "POST",
+			  url: "/trainning",
+			  dataType: "json",
+			  contentType: "application/json;charset=utf-8",
+			  traditional: true,
+			  data: JSON.stringify(trainning),
+			  success: function(data,status){
+				    alert("Post Done new training added");
+			  }
+		});
+   });
+});	  
+
+/*
+$(document).ready(function(){
 	  $("#btnCreateTraining").click(function(){
 		  	$.post("/trainning",
 	    		  {
@@ -26,4 +51,4 @@ $(document).ready(function(){
 	    		    alert("Post Done new training added");
 	    		  });
 	  		});
-	});
+	});*/

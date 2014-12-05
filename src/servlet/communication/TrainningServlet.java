@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Trainning;
+
+import com.google.gson.Gson;
+
 public class TrainningServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,6 +34,8 @@ public class TrainningServlet extends HttpServlet {
 			
 		
     	String bodyRequest = getBody(request);
+    	Gson gson = new Gson();
+    	Trainning trainning = gson.fromJson(bodyRequest, Trainning.class);
 	    
 		//Send the Json object to the web browser
 		PrintWriter out= response.getWriter();

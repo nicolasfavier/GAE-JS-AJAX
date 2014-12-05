@@ -19,6 +19,8 @@ public class Trainning {
 		private List<Exercice> exercices;
 		private String key;
 		
+		public Trainning(){}
+		
 		public String getKey() {
 			return key;
 		}
