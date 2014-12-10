@@ -26,6 +26,16 @@
     <url-pattern>/trainning</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+    <servlet-name>exercice</servlet-name>
+    <servlet-class>servlet.communication.ExerciceServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>exercice</servlet-name>
+    <url-pattern>/exercice</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>welcome</servlet-name>
     <servlet-class>servlet.communication.WelcomeServlet</servlet-class>

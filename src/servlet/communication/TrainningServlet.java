@@ -30,6 +30,21 @@ public class TrainningServlet extends HttpServlet {
    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		TrainningDao trainningDao = new TrainningDao();
+		Trainning trainning = new Trainning();
+		
+		String id = request.getParameter("id");
+		Long longID = Long.decode(id);
+		
+		trainning = trainningDao.getTrainningById(longID);
+		
+		Gson gson = new Gson();
+		String trainningJSON = gson.toJson(trainning);
+		
+		//Send the Json object to the web browser
+		PrintWriter out= response.getWriter();
+		out.write(trainningJSON);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

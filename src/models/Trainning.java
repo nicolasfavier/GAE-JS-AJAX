@@ -32,20 +32,21 @@ public class Trainning {
 		}
 	
 		private Date date;
+		private Long id;
 		private String title;
 		private String description;
 		private int expectedTime;
 		private Kind kind;
 		private List<Exercice> exercices;
-		private String key;
 		
 		public Trainning(){}
 		
-		public String getKey() {
-			return key;
+		
+		public Long getId() {
+			return id;
 		}
-		public void setKey(String key) {
-			this.key = key;
+		public void setId(Long id) {
+			this.id = id;
 		}
 		public Date getDate() {
 			return date;
@@ -90,14 +91,18 @@ public class Trainning {
 			this.exercices = exercices;
 		}
 		public Trainning(Date date, int expectedTime, Kind kind,
-				List<Exercice> exercices, String key, String title, String description) {
+				List<Exercice> exercices, Long id, String title, String description) {
 			super();
 			this.date = date;
 			this.expectedTime = expectedTime;
 			this.kind = kind;
 			this.exercices = exercices;
-			this.key = key;
+			this.id = id;
 			this.title = title;
 			this.description = description;
+		}
+		
+		public void addExercice(Exercice ex){
+			this.exercices.add(ex);
 		}
 }
