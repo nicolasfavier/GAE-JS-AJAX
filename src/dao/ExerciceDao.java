@@ -35,9 +35,8 @@ public class ExerciceDao {
 		for(Entity exEntity : pq.asIterable()){
 			String titleEx = (String) exEntity.getProperty("title"); 
 			String descriptionEx = (String) exEntity.getProperty("description"); 
-			int duration = Ints.checkedCast((long) exEntity.getProperty("duration"));
 			Long idExercice = (Long) exEntity.getKey().getId();
-
+			int duration = Ints.checkedCast((Long) exEntity.getProperty("duration"));
 			Exercice exercice = new Exercice();
 			
 			exercice.setTitle(titleEx);

@@ -122,8 +122,8 @@ public class TrainningDao {
 		for(Entity exEntity : pq.asIterable()){
 			String titleEx = (String) exEntity.getProperty("title"); 
 			String descriptionEx = (String) exEntity.getProperty("description"); 
-			int duration = Ints.checkedCast((long) exEntity.getProperty("duration"));
 			Long idExercice = (Long) exEntity.getKey().getId();
+			int duration = Ints.checkedCast((Long) exEntity.getProperty("duration"));
 
 			Exercice exercice = new Exercice();
 			
@@ -135,5 +135,28 @@ public class TrainningDao {
 			listExercice.add(exercice);								
 		}
 		return listExercice;
+	}
+	
+	public List<Trainning> getListTrainningByName(String search){
+		
+		List<Trainning> TrainningMatchingName = new ArrayList<Trainning>();
+		
+		Filter searchFilter = new FilterPredicate("title", FilterOperator.EQUAL, search);
+		Query q =  new Query("Trainning").setFilter(searchFilter);
+		PreparedQuery pq = datastore.prepare(q);
+		
+		for(Entity TEntity : pq.asIterable()){
+			String titleT = (String) TEntity.getProperty("title"); 
+			int expectedTime = Ints.checkedCast((Long)TEntity.getProperty("expectedTime"));
+
+			Trainning trainning = new Trainning();
+			
+			trainning.setTitle(titleT);
+			trainning.setExpectedTime(expectedTime);
+			trainning.setExpectedTime(expectedTime);
+			
+			TrainningMatchingName.add(trainning);								
+		}		
+		return TrainningMatchingName;
 	}
 }
