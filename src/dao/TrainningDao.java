@@ -22,32 +22,18 @@ public class TrainningDao {
 		trainningEntity.setProperty("title", trainningSubmited.getTitle());
 		trainningEntity.setProperty("description",trainningSubmited.getDescription() );
 		trainningEntity.setProperty("kind",trainningSubmited.getKind().getValue() );
-
-		Entity exercice = new Entity("Exercice");
-		EmbeddedEntity embeddedExercice = new EmbeddedEntity();
+		Key trainningKey = datastore.put(trainningEntity);
 
 		for (Exercice ex : trainningSubmited.getExercices()){
+			Entity exercice = new Entity("Exercice", trainningKey);
+
 			exercice.setProperty("title",ex.getTitle());
 			exercice.setProperty("description", ex.getDescription());
 			exercice.setProperty("duration", ex.getDuration());
 			
-			Key key = datastore.put(exercice);
-			
-			embeddedExercice.setKey(key);
-			embeddedExercice.setPropertiesFrom(exercice);
-
-			trainningEntity.setProperty("Exercices", embeddedExercice);
+			datastore.put(exercice);
 		}
 		
-		
-
-		
-		//EmbeddedEntity exerciceEntity = new EmbeddedEntity();
-		//exerciceEntity.setPropertiesFrom(trainningSubmited.getExercices().get(1));
-
-		//trainningEntity.setProperty("exercices", exerciceEntity);
-		
-		datastore.put(trainningEntity);
 	}
 	
 }
