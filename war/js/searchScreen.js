@@ -50,12 +50,14 @@ $(document).ready(function(){
 	});
 
 $(document).ready(function(){
-	$("#searchExercices").click(function(){
-	  	$.get("exercice", {
-	  		id: $("#")
-	  	},
-    		  function(data,status){
-    		    window.location.replace( data.Url);
-    		  });
-  		});
-});
+	  $("#searchExercices").click(function(){
+		  alert("coucou");
+		  	$.get("searchbyword",
+	    		  {
+	    		    search: $("#searchExercicesInput").val()
+	    		  },
+	    		  function(data,status){
+	    		    alert("jsonNew " + data.fluxRss + "  trainings: " + data.trainningsJSON);
+	    		  });
+	  		});
+	});

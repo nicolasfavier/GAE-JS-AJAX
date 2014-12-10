@@ -120,6 +120,10 @@ function deleteExercice(id){
 	$( "#message" + id ).remove();
 	updateTime();
 };
+
+
+
+
 /*
 $(document).ready(function(){
 	  $("#btnCreateTraining").click(function(){

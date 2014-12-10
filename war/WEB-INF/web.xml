@@ -7,6 +7,17 @@
 
 
   <!-- Servlets -->
+  
+   <servlet>
+    <servlet-name>searchServlet</servlet-name>
+    <servlet-class>servlet.communication.SearchServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>searchServlet</servlet-name>
+    <url-pattern>/searchbyword</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>userRegistration</servlet-name>
     <servlet-class>servlet.communication.UserRegistrationServlet</servlet-class>
