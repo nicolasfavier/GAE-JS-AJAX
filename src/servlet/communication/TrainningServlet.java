@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,18 +35,31 @@ public class TrainningServlet extends HttpServlet {
 		TrainningDao trainningDao = new TrainningDao();
 		Trainning trainning = new Trainning();
 		
+		
 		String id = request.getParameter("id");
-		Long longID = Long.decode(id);
+		String kind = request.getParameter("kind");
 		
-		trainning = trainningDao.getTrainningById(longID);
-		
-		Gson gson = new Gson();
-		String trainningJSON = gson.toJson(trainning);
-		
-		//Send the Json object to the web browser
 		PrintWriter out= response.getWriter();
-		out.write(trainningJSON);
+		Gson gson = new Gson();
 		
+		if ( id!= null){
+			Long longID = Long.decode(id);
+			
+			trainning = trainningDao.getTrainningById(longID);
+			
+			String trainningJSON = gson.toJson(trainning);
+			
+			out.write(trainningJSON);
+		}
+		
+		if(kind != null){
+			List<Trainning> trainnings = new ArrayList<Trainning>();
+			trainnings = trainningDao.getTrainningByKind(kind);
+			
+			String trainningJSON = gson.toJson(trainnings);
+			
+			out.write(trainningJSON);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

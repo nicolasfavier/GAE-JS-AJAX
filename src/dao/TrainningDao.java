@@ -82,9 +82,8 @@ public class TrainningDao {
 	public List<Trainning> getTrainningByKind(String kind){
 
 		List<Trainning> trainnings = new ArrayList<Trainning>();
-		List<Exercice> exercices = new ArrayList<Exercice>();
 		
-		Filter kindFilter = new FilterPredicate("kind", FilterOperator.IN, kind);
+		Filter kindFilter = new FilterPredicate("kind", FilterOperator.EQUAL, kind);
 		Query q =  new Query("Trainning").setFilter(kindFilter);
 		
 		PreparedQuery pq = datastore.prepare(q);
@@ -103,7 +102,7 @@ public class TrainningDao {
 			trainning.setId(idTrainning);
 			
 			trainning.setExercices(this.getListExercices(trainningEntity.getKey()));
-		
+			trainnings.add(trainning);
 		}		
 		
 		
