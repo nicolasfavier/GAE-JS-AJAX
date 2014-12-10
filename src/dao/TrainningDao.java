@@ -15,6 +15,9 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.labs.repackaged.com.google.common.primitives.Ints;
 
 public class TrainningDao {
@@ -44,13 +47,7 @@ public class TrainningDao {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	public Trainning getTrainningById(Long id){
-		
-		/*Filter keyFilter = new FilterPredicate("title",
-				                      FilterOperator.EQUAL,
-				                      key);
-		Query q =  new Query("Trainning").setFilter(keyFilter);*/
 
 		Trainning trainning = new Trainning();
 		
@@ -82,6 +79,38 @@ public class TrainningDao {
 		
 	}
 	
+	public List<Trainning> getTrainningByKind(String kind){
+
+		List<Trainning> trainnings = new ArrayList<Trainning>();
+		List<Exercice> exercices = new ArrayList<Exercice>();
+		
+		Filter kindFilter = new FilterPredicate("kind", FilterOperator.IN, kind);
+		Query q =  new Query("Trainning").setFilter(kindFilter);
+		
+		PreparedQuery pq = datastore.prepare(q);
+		
+		for(Entity trainningEntity : pq.asIterable()){	
+			Trainning trainning = new Trainning();
+			String title = (String) trainningEntity.getProperty("title"); 
+			String description = (String) trainningEntity.getProperty("description");
+			String kindString = (String) trainningEntity.getProperty("kind");
+			Long idTrainning = (Long) trainningEntity.getKey().getId();
+			
+			trainning.setTitle(title);
+			trainning.setDescription(description);
+			Kind kindTrainning = Kind.valueOf(kindString.toUpperCase());
+			trainning.setKind(kindTrainning);
+			trainning.setId(idTrainning);
+			
+			trainning.setExercices(this.getListExercices(trainningEntity.getKey()));
+		
+		}		
+		
+		
+		return trainnings;
+		
+	}
+	
 	List<Exercice> getListExercices(Key trainningKey){
 		
 		List<Exercice> listExercice = new ArrayList<Exercice>();
@@ -94,12 +123,14 @@ public class TrainningDao {
 			String titleEx = (String) exEntity.getProperty("title"); 
 			String descriptionEx = (String) exEntity.getProperty("description"); 
 			int duration = Ints.checkedCast((long) exEntity.getProperty("duration"));
+			Long idExercice = (Long) exEntity.getKey().getId();
 
 			Exercice exercice = new Exercice();
 			
 			exercice.setTitle(titleEx);
 			exercice.setDescription(descriptionEx);
 			exercice.setDuration(duration);
+			exercice.setId(idExercice);
 			
 			listExercice.add(exercice);								
 		}

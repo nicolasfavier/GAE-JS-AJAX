@@ -28,7 +28,7 @@ public class ExerciceDao {
 		
 		List<Exercice> exercicesMatchingName = new ArrayList<Exercice>();
 		
-		Filter searchFilter = new FilterPredicate("title", FilterOperator.EQUAL, search);
+		Filter searchFilter = new FilterPredicate("title", FilterOperator.IN, search);
 		Query q =  new Query("Exercice").setFilter(searchFilter);
 		PreparedQuery pq = datastore.prepare(q);
 		
@@ -36,12 +36,14 @@ public class ExerciceDao {
 			String titleEx = (String) exEntity.getProperty("title"); 
 			String descriptionEx = (String) exEntity.getProperty("description"); 
 			int duration = Ints.checkedCast((long) exEntity.getProperty("duration"));
+			Long idExercice = (Long) exEntity.getKey().getId();
 
 			Exercice exercice = new Exercice();
 			
 			exercice.setTitle(titleEx);
 			exercice.setDescription(descriptionEx);
 			exercice.setDuration(duration);
+			exercice.setId(idExercice);
 			
 			exercicesMatchingName.add(exercice);								
 		}		

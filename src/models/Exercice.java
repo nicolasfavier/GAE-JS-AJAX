@@ -5,9 +5,17 @@ public class Exercice {
 	private String key;
 	private String title;
 	private String description;
+	private Long id;
 	private int duration;
 	private int repetition;
 	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -43,12 +51,13 @@ public class Exercice {
 	}
 	
 	public Exercice(String key, String title, String description, int duration,
-			int repetition) {
+			int repetition, Long id) {
 		super();
 		this.key = key;
 		this.title = title;
 		this.description = description;
 		this.duration = duration;
 		this.repetition = repetition;
+		this.id = id;
 	}
 }
