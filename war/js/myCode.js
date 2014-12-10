@@ -23,7 +23,8 @@ $(document).ready(function(){
 				title : $("#inputTitle").val(),
 				description : $("#inputDescription").val(),
 				expectedTime : 20,
-				kind : $("#e1").val()
+				kind : $("#e1").val(),
+				exercices : listExo
 			};
 		
 		$.ajax({
