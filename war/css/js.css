@@ -6,6 +6,9 @@ html,body {height: 100%; padding-top: 0px; overflow-x:hidden; overflow-y:auto}
 .lateralLeft{overflow-y:auto;}
 .lateralRight{overflow-y:auto;}
 
+#showLogUser{
+	color: white;
+}
 
 .clock {
 /*position: relative !important;*/
