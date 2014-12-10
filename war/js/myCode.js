@@ -17,13 +17,18 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$("#btnCreateTraining").click(function(){
-
+		var listExercices = new Array();
+		
+		$.each( listExo, function( key, exerciceWraper ) {
+			listExercices.push(exerciceWraper.exercice);
+		});
+		
 		var trainning = {
 				title : $("#inputTitle").val(),
 				description : $("#inputDescription").val(),
 				expectedTime : 20,
 				kind : $("#e1").val(),
-				exercices : listExo
+				exercices : listExercices
 			};
 		
 		$.ajax({
