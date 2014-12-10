@@ -146,13 +146,13 @@ public class TrainningDao {
 		
 		for(Entity TEntity : pq.asIterable()){
 			String titleT = (String) TEntity.getProperty("title"); 
-			int expectedTime = Ints.checkedCast((Long)TEntity.getProperty("expectedTime"));
+			//int expectedTime = Ints.checkedCast((Long)TEntity.getProperty("expectedTime"));
+			Long id = TEntity.getKey().getId();
 
 			Trainning trainning = new Trainning();
 			
 			trainning.setTitle(titleT);
-			trainning.setExpectedTime(expectedTime);
-			trainning.setExpectedTime(expectedTime);
+			trainning.setId(id);
 			
 			TrainningMatchingName.add(trainning);								
 		}		
