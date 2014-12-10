@@ -31,7 +31,7 @@ public class SearchServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Format the answer
 		response.setContentType("application/json");
@@ -46,19 +46,32 @@ public class SearchServlet extends HttpServlet {
 		String trainningsJSON = gson.toJson(listTrainning);
 	
 		jsonToSend.put("fluxRss", getFluxRss());
-		jsonToSend.put("trainningsJSON", listTrainning);// Send the Json object to the web browser
-		PrintWriter out = response.getWriter();
+		jsonToSend.put("trainningsJSON", trainningsJSON);// Send the Json object to the web browser
 		
+		PrintWriter out = response.getWriter();
 		out.write(jsonToSend.toString());
-	}
+	}*/
 	
-
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	String search = request.getParameter("search");
+	TrainningDao TDAO = new TrainningDao();
+	List<Trainning> listTrainning = TDAO.getListTrainningByName(search);
+		
+		Gson gson = new Gson();
+		String TrainningJSON = gson.toJson(listTrainning);
+		
+		String jsonToSend = "{ \"listTrainning\" : " +TrainningJSON + ", \"fluxrss\" : "+ getFluxRss() +" }";
+		//Send the Json object to the web browser
+		PrintWriter out= response.getWriter();
+		out.write(jsonToSend);
+	}
 
 	private String getFluxRss() {
 		String str = "";
 		try {
 			URL url = new URL(
-					"https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.runnersworld.com/taxonomy/term/740/1/feed");
+					"https://ajax.googleap is.com/ajax/services/feed/load?v=1.0&q=http://www.runnersworld.com/taxonomy/term/740/1/feed");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					url.openStream()));
 			String line;
