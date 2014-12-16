@@ -82,9 +82,8 @@ public class TrainningDao {
 	public List<Trainning> getTrainningByKind(String kind){
 
 		List<Trainning> trainnings = new ArrayList<Trainning>();
-		List<Exercice> exercices = new ArrayList<Exercice>();
 		
-		Filter kindFilter = new FilterPredicate("kind", FilterOperator.IN, kind);
+		Filter kindFilter = new FilterPredicate("kind", FilterOperator.EQUAL, kind);
 		Query q =  new Query("Trainning").setFilter(kindFilter);
 		
 		PreparedQuery pq = datastore.prepare(q);
@@ -103,7 +102,7 @@ public class TrainningDao {
 			trainning.setId(idTrainning);
 			
 			trainning.setExercices(this.getListExercices(trainningEntity.getKey()));
-		
+			trainnings.add(trainning);
 		}		
 		
 		
@@ -140,20 +139,26 @@ public class TrainningDao {
 	public List<Trainning> getListTrainningByName(String search){
 		
 		List<Trainning> TrainningMatchingName = new ArrayList<Trainning>();
+		int expectedTime = 0;
 		
 		Filter searchFilter = new FilterPredicate("title", FilterOperator.EQUAL, search);
 		Query q =  new Query("Trainning").setFilter(searchFilter);
 		PreparedQuery pq = datastore.prepare(q);
 		
 		for(Entity TEntity : pq.asIterable()){
-			String titleT = (String) TEntity.getProperty("title"); 
-			//int expectedTime = Ints.checkedCast((Long)TEntity.getProperty("expectedTime"));
+			String titleT = (String) TEntity.getProperty("title");
+			String descriptionT = (String) TEntity.getProperty("description");
 			Long id = TEntity.getKey().getId();
+
+			List<Exercice> exerciceList = new ArrayList<Exercice>();	
+			exerciceList = getListExercices(TEntity.getKey());		
 
 			Trainning trainning = new Trainning();
 			
 			trainning.setTitle(titleT);
 			trainning.setId(id);
+			trainning.setDescription(descriptionT);
+			trainning.setExercices(exerciceList);
 			
 			TrainningMatchingName.add(trainning);								
 		}		

@@ -28,7 +28,7 @@ public class ExerciceDao {
 		
 		List<Exercice> exercicesMatchingName = new ArrayList<Exercice>();
 		
-		Filter searchFilter = new FilterPredicate("title", FilterOperator.IN, search);
+		Filter searchFilter = new FilterPredicate("title", FilterOperator.EQUAL, search);
 		Query q =  new Query("Exercice").setFilter(searchFilter);
 		PreparedQuery pq = datastore.prepare(q);
 		
