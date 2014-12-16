@@ -71,7 +71,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		String str = "";
 		try {
 			URL url = new URL(
-					"https://ajax.googleap is.com/ajax/services/feed/load?v=1.0&q=http://www.runnersworld.com/taxonomy/term/740/1/feed");
+					"https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.runnersworld.com/taxonomy/term/740/1/feed");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					url.openStream()));
 			String line;
