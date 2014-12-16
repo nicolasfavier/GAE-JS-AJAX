@@ -1,21 +1,53 @@
 var listExo = new Array();
 
-for (i = 1; i <= 4; i++) { 
+function getUrlParameter(sParam) {
+	var sPageURL = window.location.search.substring(1);
+	var sURLVariables = sPageURL.split('&');
 	
-
-	addExerciseByIdInHTML(i)
-	var clock =$('#flipcountdownbox' + i).FlipClock({
-		 autoStart: false,
-		    countdown: false
-		});
-	
-	var exerciceWraper = {
-			clock : clock,
-			id : i
+	for (var i = 0; i < sURLVariables.length; i++) {
+		var sParameterName = sURLVariables[i].split('=');
+		if (sParameterName[0] == sParam) {
+			return sParameterName[1];
+		}
 	}
 	
-	listExo.push(exerciceWraper);
+	return null;
 }
+
+$(document).ready(function() {
+	var trainningId = getUrlParameter('trainningId');
+	
+	if(trainningId){
+		$.get("pendingTrainning", {
+			id : trainningId
+		}, function(data, status) {
+			alert(data);
+			var obj = jQuery.parseJSON(data);
+			if (obj.length > 0) {
+				/*$.each(obj, function(key, value) {
+					for (i = 1; i <= 4; i++) { 
+						
+
+						addExerciseByIdInHTML(i)
+						var clock =$('#flipcountdownbox' + i).FlipClock({
+							 autoStart: false,
+							    countdown: false
+							});
+						
+						var exerciceWraper = {
+								clock : clock,
+								id : i
+						}
+						
+						listExo.push(exerciceWraper);
+					}
+				});*/
+			}
+		});
+	}
+});
+
+
 
 function runChrono(id){
 	$.each( listExo, function( key, exerciceWraper ) {

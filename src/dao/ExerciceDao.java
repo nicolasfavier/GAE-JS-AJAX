@@ -71,7 +71,7 @@ public class ExerciceDao {
 		if(exerciceEntity != null){
 			String title = (String) exerciceEntity.getProperty("title"); 
 			String description = (String) exerciceEntity.getProperty("description");
-			int duration = (int) exerciceEntity.getProperty("duration");
+			int duration = (Integer) exerciceEntity.getProperty("duration");
 			Long idTrainning = (Long) exerciceEntity.getKey().getId();
 			
 			exercice.setTitle(title);
