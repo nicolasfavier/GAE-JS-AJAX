@@ -46,9 +46,9 @@ function addTrainningInHTML(trainning) {
 	$("#trainningList")
 			.append(
 					'<div class=" col-md-6 col-sm-6 col-xs-6">'
-							+ '<button type="submit" class="btn btn-link">'
+							+ '<a href="ha-result-detail-screen.html?trainningId='+ trainning.id +'" class="btn btn-link">'
 							+ trainning.title
-							+ '</button></div><div class=" col-md-6 col-sm-6 col-xs-6"><label class="btn"> <span class="glyphicon glyphicon-time"></span> '
+							+ '</a></div><div class=" col-md-6 col-sm-6 col-xs-6"><label class="btn"> <span class="glyphicon glyphicon-time"></span> '
 							+ trainning.expectedTime + ' min.'
 							+ '</label></div>');
 
@@ -66,9 +66,9 @@ function addExInHTML(exercices) {
 	$("#exercicesList")
 			.append(
 					'<div class=" col-md-6 col-sm-6 col-xs-6">'
-							+ '<button type="submit" class="btn btn-link">'
+							+ '<a href="ha-result-detail-screen.html?trainningId='+ exercices.trainningId +'" class="btn btn-link">'
 							+ exercices.title
-							+ '</button></div><div class=" col-md-6 col-sm-6 col-xs-6"><label class="btn"> <span class="glyphicon glyphicon-time"></span> '
+							+ '</a></div><div class=" col-md-6 col-sm-6 col-xs-6"><label class="btn"> <span class="glyphicon glyphicon-time"></span> '
 							+ exercices.duration + ' min.' + '</label></div>');
 
 }
