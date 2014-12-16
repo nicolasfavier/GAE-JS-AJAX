@@ -11,12 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.PendingTrainning;
+
 import org.json.simple.JSONObject;
 
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
+import dao.PendingTrainningDao;
 import dao.UserDao;
 
 public class OpenIdServlet extends HttpServlet {
@@ -48,7 +51,17 @@ public class OpenIdServlet extends HttpServlet {
 		if (user != null) {
 			String nickNname = user.getNickname();
 			UserDao userDao = new UserDao();
-			userDao.createUser(nickNname);
+			models.User u = userDao.createUser(nickNname);
+			
+			/******** TEST ********/
+			
+			PendingTrainningDao pendingTrainningDao = new PendingTrainningDao();
+			Long id = Long.decode("4996180836614144");
+			PendingTrainning pendingTraining = pendingTrainningDao.createOrGetPendingTrainning(id, u.getKey());
+			
+			/******** TEST ********/
+			
+			
 			jsonToSend.put("userNickname", nickNname);
 			jsonToSend.put("logoutUrl",userService.createLogoutURL("/ha-search-screen.html"));
 		}

@@ -2,8 +2,11 @@ package models;
 
 import java.util.List;
 
+import com.google.appengine.api.datastore.Key;
+
 public class User {
 	private String nickname;
+	private Key key;
 	private List<PendingTrainning> pendingTrainnings;
 	
 	public User(){}
@@ -13,6 +16,16 @@ public class User {
 		this.nickname = nickname;
 		this.pendingTrainnings = pendingTrainnings;
 	}
+	
+	
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
 	public String getNickname() {
 		return nickname;
 	}
