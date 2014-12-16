@@ -1,39 +1,72 @@
 package models;
 
+import java.util.Date;
 import java.util.List;
 
 public class PendingTrainning {
 	private Long id;
-	private Trainning trainning;
+	private Long trainningId;
+	private Date date;
+	private String title;
+	private String description;
+	private int expectedTime;
 	private List<PendingExercice> pendingExercice;
 	private boolean completed;
 	private int time;
 	
+	
+	
+	public Long getTrainningId() {
+		return trainningId;
+	}
+
+	public void setTrainningId(Long trainningId) {
+		this.trainningId = trainningId;
+	}
+
 	public PendingTrainning(){
 		this.time = 0;
 	}
 
-	public PendingTrainning(Long id, Trainning trainning,
-			List<PendingExercice> pendingExercice, boolean completed, int time) {
-		super();
-		this.id = id;
-		this.trainning = trainning;
-		this.pendingExercice = pendingExercice;
-		this.completed = completed;
-		this.time = time;
-	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Trainning getTrainning() {
-		return trainning;
+
+	public Date getDate() {
+		return date;
 	}
-	public void setTrainning(Trainning trainning) {
-		this.trainning = trainning;
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getExpectedTime() {
+		return expectedTime;
+	}
+
+	public void setExpectedTime(int expectedTime) {
+		this.expectedTime = expectedTime;
+	}
+
 	public boolean isCompleted() {
 		return completed;
 	}

@@ -39,6 +39,16 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>pendingTrainning</servlet-name>
+    <servlet-class>servlet.communication.PendingTrainningServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>pendingTrainning</servlet-name>
+    <url-pattern>/pendingTrainning</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
     <servlet-name>exercice</servlet-name>
     <servlet-class>servlet.communication.ExerciceServlet</servlet-class>
   </servlet>

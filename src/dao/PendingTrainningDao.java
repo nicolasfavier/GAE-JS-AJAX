@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Exercice;
+import models.PendingExercice;
 import models.PendingTrainning;
 import models.Trainning;
 
@@ -27,12 +28,15 @@ public class PendingTrainningDao {
 	
 	public PendingTrainning createOrGetPendingTrainning(Long trainningId, Key userKey){
 		PendingTrainning pendingTrainning = getPendingTrainning(trainningId, userKey);
+		
 		if( pendingTrainning == null){
 			Entity pendingTrainningEntity = new Entity("pendingTrainning", userKey);
 			pendingTrainningEntity.setProperty("trainningId", trainningId);
 			datastore.put(pendingTrainningEntity);
 			
 			pendingTrainning = getPendingTrainning(trainningId, userKey);
+			
+			
 		}
 		return pendingTrainning;
 	}
@@ -43,7 +47,7 @@ public class PendingTrainningDao {
 		
 		listPendingTrainning = getListPendingTrainning(userKey);
 		for(PendingTrainning pendingTrain : listPendingTrainning){
-			if (pendingTrain.getTrainning().getId().equals(trainningId)){
+			if (pendingTrain.getTrainningId().equals(trainningId)){
 				pendingTrainning = pendingTrain;
 			}
 		}
@@ -70,8 +74,29 @@ public class PendingTrainningDao {
 			
 			Trainning trainning = new Trainning();
 			trainning = trainningDao.getTrainningById(trainningIdEntity);
+			List<PendingExercice> listPendingEx = new ArrayList<PendingExercice>();
 			
-			pendingTrainning.setTrainning(trainning);
+			for(Exercice ex : trainning.getExercices()){
+				
+				Entity pendingExerciceEntity = new Entity("pendingExercice", pendingTrainningEntity.getKey());
+				pendingExerciceEntity.setProperty("exerciceId", ex.getId());
+				Key keyPendingEx = datastore.put(pendingExerciceEntity);
+				
+				PendingExercice pendingExercice = new PendingExercice();
+				pendingExercice.setTitle(ex.getTitle());
+				pendingExercice.setDescription(ex.getDescription());
+				pendingExercice.setDuration(ex.getDuration());
+				pendingExercice.setId(keyPendingEx.getId());
+				pendingExercice.setRepetition(ex.getRepetition());
+				listPendingEx.add(pendingExercice);
+			}
+			
+			pendingTrainning.setDate(trainning.getDate());
+			pendingTrainning.setDescription(trainning.getDescription());
+			pendingTrainning.setTitle(trainning.getTitle());
+			pendingTrainning.setExpectedTime(trainning.getExpectedTime());
+			pendingTrainning.setTrainningId(trainning.getId());
+			pendingTrainning.setPendingExercice(listPendingEx);
 			
 			listPendingTrainning.add(pendingTrainning);								
 		}

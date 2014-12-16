@@ -56,11 +56,13 @@ public class ExerciceDao {
 		return exercicesMatchingName;
 	}
 	
-	public Exercice getExerciceById(Long id){
+	public Exercice getExerciceById(Long id, Long trainningId){
 
 		Exercice exercice = new Exercice();
 		
-		Key key = KeyFactory.createKey("Exercice", id);
+		Key keyTrainning= KeyFactory.createKey("Trainning", trainningId);
+	    
+		Key key = KeyFactory.createKey(keyTrainning,"Exercice", id);
 		Entity exerciceEntity = null;
 		try {
 			exerciceEntity = datastore.get(key);
@@ -71,7 +73,7 @@ public class ExerciceDao {
 		if(exerciceEntity != null){
 			String title = (String) exerciceEntity.getProperty("title"); 
 			String description = (String) exerciceEntity.getProperty("description");
-			int duration = (int) exerciceEntity.getProperty("duration");
+			int duration = Ints.checkedCast((Long) exerciceEntity.getProperty("duration"));
 			Long idTrainning = (Long) exerciceEntity.getKey().getId();
 			
 			exercice.setTitle(title);
