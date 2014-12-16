@@ -15,24 +15,28 @@ $(document).ready(function() {
 		$.get("searchbyword", {
 			search : search
 		}, function(data, status) {
-			//alert("json " + data);
 			var obj = jQuery.parseJSON(data);
 
-			$.each(obj.listTrainning, function(key, value) {
-				addTrainningInHTML(value);
-			});
-			
-			$.each(obj.ListExercice, function(key, value) {
-				addExInHTML(value);
-			});
-			alert("ici");
-			
-			alert(obj.fluxrss.responseData);
+			if (obj.listTrainning.length > 0) {
+				$.each(obj.listTrainning, function(key, value) {
+					addTrainningInHTML(value);
+				});
+			} else {
+				nullTrainningInHTML();
+			}
+
+			if (obj.listExercice.length > 0 ) {
+				$.each(obj.listExercice, function(key, value) {
+					addExInHTML(value);
+				});
+			} else {
+				nullExInHTML();
+			}
+		
 			$.each(obj.fluxrss.responseData.feed.entries, function(key, value) {
-				alert("news");
 				addNewsInHTML(value);
 			});
-			
+
 		});
 	}
 
@@ -50,6 +54,14 @@ function addTrainningInHTML(trainning) {
 
 }
 
+function nullTrainningInHTML() {
+	$("#trainningList").append('there is no trainning for your search.');
+}
+
+function nullExInHTML() {
+	$("#exercicesList").append('there is no exercices for your search.');
+}
+
 function addExInHTML(exercices) {
 	$("#exercicesList")
 			.append(
@@ -57,13 +69,13 @@ function addExInHTML(exercices) {
 							+ '<button type="submit" class="btn btn-link">'
 							+ exercices.title
 							+ '</button></div><div class=" col-md-6 col-sm-6 col-xs-6"><label class="btn"> <span class="glyphicon glyphicon-time"></span> '
-							+ exercices.durration + ' min.'
-							+ '</label></div>');
+							+ exercices.duration + ' min.' + '</label></div>');
 
 }
 
 function addNewsInHTML(news) {
-	$("#newsList")
-			.append('<p>'+news.title+' : ' + news.content +" (edit by: "+ news.author+")"+'</p>');
+	$("#newsList").append(
+			'<p>' + news.title + ' : ' + news.content + " (edit by: "
+					+ news.author + ")" + '</p>');
 
 }
