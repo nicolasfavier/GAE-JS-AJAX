@@ -5,17 +5,13 @@ public class PendingExercice {
 	private int time;
 	private boolean finish;
 	private Long id;
-	private Exercice exercice;
+	private String title;
+	private String description;
+	private int duration;
+	private int repetition;	
 	
 	public PendingExercice(){}
 	
-	public PendingExercice(int time, boolean finish, Long id, Exercice exercice) {
-		super();
-		this.time = time;
-		this.finish = finish;
-		this.id = id;
-		this.exercice = exercice;
-	}
 	public int getTime() {
 		return time;
 	}
@@ -34,11 +30,37 @@ public class PendingExercice {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Exercice getExercice() {
-		return exercice;
+
+	public String getTitle() {
+		return title;
 	}
-	public void setExercice(Exercice exercice) {
-		this.exercice = exercice;
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public int getRepetition() {
+		return repetition;
+	}
+
+	public void setRepetition(int repetition) {
+		this.repetition = repetition;
 	}
 	
 	
