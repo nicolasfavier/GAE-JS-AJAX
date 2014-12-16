@@ -28,7 +28,7 @@ public class UserDao {
 	}
 	
 	public void createUser(String nickname){
-		if(getUser(nickname) != null){
+		if(getUser(nickname) == null){
 			userEntity.setProperty("nickname", nickname);
 			datastore.put(userEntity);
 		}

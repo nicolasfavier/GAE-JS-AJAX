@@ -17,6 +17,8 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
+import dao.UserDao;
+
 public class OpenIdServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -44,7 +46,10 @@ public class OpenIdServlet extends HttpServlet {
 		jsonToSend = new JSONObject();
 
 		if (user != null) {
-			jsonToSend.put("userNickname", user.getNickname());
+			String nickNname = user.getNickname();
+			UserDao userDao = new UserDao();
+			userDao.createUser(nickNname);
+			jsonToSend.put("userNickname", nickNname);
 			jsonToSend.put("logoutUrl",userService.createLogoutURL("/ha-search-screen.html"));
 		}
 		// Send the Json object to the web browser
