@@ -48,20 +48,3 @@ $(document).ready(function(){
 	    		  });
 	  		});
 	});
-
-$(document).ready(function(){
-	  $("#searchExercices").click(function(){
-		  	$.get("searchbyword",
-	    		  {
-	    		    search: $("#searchExercicesInput").val()
-	    		  },
-	    		  function(data,status){
-	    		    alert("json " + data);
-	    		    var obj = jQuery.parseJSON( data );
-	    		    
-	    		    $.each(  obj.listTrainning, function( key, value ) {
-	    		    	  alert(value.title );
-	    		    	});
-	    		  });
-	  		});
-	});
