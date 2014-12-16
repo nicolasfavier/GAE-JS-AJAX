@@ -23,25 +23,23 @@ $(document).ready(function() {
 		}, function(data, status) {
 			alert(data);
 			var obj = jQuery.parseJSON(data);
-			if (obj.length > 0) {
-				/*$.each(obj, function(key, value) {
-					for (i = 1; i <= 4; i++) { 
-						
-
-						addExerciseByIdInHTML(i)
-						var clock =$('#flipcountdownbox' + i).FlipClock({
+			addTrainningByIdInHTML(obj);
+			
+			if (obj.pendingExercice.length > 0) {
+				$.each(obj.pendingExercice, function(key, value) {
+						addExerciseByIdInHTML(value)
+						var clock =$('#flipcountdownbox' + value.id).FlipClock({
 							 autoStart: false,
 							    countdown: false
 							});
 						
 						var exerciceWraper = {
 								clock : clock,
-								id : i
-						}
+								id : value.id
+						};
 						
 						listExo.push(exerciceWraper);
-					}
-				});*/
+					});
 			}
 		});
 	}
@@ -74,26 +72,32 @@ function resetChrono(id){
 	});
 }
 
-function addExerciseByIdInHTML( i){
-	
+function addTrainningByIdInHTML(trainning){
+
+	$( "#tabExercicesUser" ).append('<h2>'+ trainning.title +'<span class=" margetitle glyphicon glyphicon-time"></span>'+ trainning.expectedTime +'<h2>')
+			
+}
+
+function addExerciseByIdInHTML(exercice){
+	i = exercice.id;
 	$( "#tabExercicesUser" ).append( 
 			
 			'<tr>'+
 			'<td class=" col-md-12 col-sm-12 col-xs-12">'+
 			'<div class="row">'+
 			    '<div class=" col-md-3 col-sm-12 col-xs-12 ">'+
-			        '<h3>running warm-up</h3>'+
+			        '<h3>'+ exercice.title +'</h3>'+
 			    '</div>'+
 			    '<div class=" col-md-1 col-sm-2 col-xs-2 ">'+
-			        '<p id="totalTimeValue" style="margin-top:25px"><span class="glyphicon glyphicon-time"></span> 0:20:00</p>'+
+			        '<p id="totalTimeValue" style="margin-top:25px"><span class="glyphicon glyphicon-time"></span>'+ exercice.duration +'</p>'+
 			    '</div>'+
 			'</div>'+
 			'<div class="row">'+
 			    '<div class=" col-md-1 col-sm-0 col-xs-0 " ></div>'+
 			    '<div class=" col-md-6 col-sm-12 col-xs-12 ">'+
-			        '<p>Ideoque fertur neminem aliquando ob haec vel similia poenae addictum oblato de more elogio revocari iussisse, quod inexorabiles quoque principes factitarunt. et exitiale hoc vitium, quod in aliis non numquam intepescit, in illo aetatis progressu effervescebat, obstinatum eius propositum accendente adulatorum cohorte.</p>'+
+			        '<p>'+ exercice.description +'</p>'+
 			    '</div>'+
-			    '<div class=" col-md-3 col-sm-12 col-xs-12 ">'+
+			    '<div class=" col-md-5 col-sm-12 col-xs-12 ">'+
 			        '<div class=" col-md-12 col-sm-12 col-xs-12 ">'+
 			            '<div id="flipcountdownbox'+ i +'" ></div>'+
 			        '</div>'+
