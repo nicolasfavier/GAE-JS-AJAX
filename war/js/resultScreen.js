@@ -1,6 +1,7 @@
 function getUrlParameter(sParam) {
 	var sPageURL = window.location.search.substring(1);
 	var sURLVariables = sPageURL.split('&');
+	
 	for (var i = 0; i < sURLVariables.length; i++) {
 		var sParameterName = sURLVariables[i].split('=');
 		if (sParameterName[0] == sParam) {
@@ -10,8 +11,10 @@ function getUrlParameter(sParam) {
 }
 
 $(document).ready(function() {
-	var search = getUrlParameter('search');
-	if (search != null) {
+	search(getUrlParameter('search'));
+});
+
+function search(search) {
 		$.get("searchbyword", {
 			search : search
 		}, function(data, status) {
@@ -38,9 +41,8 @@ $(document).ready(function() {
 			});
 
 		});
-	}
+}
 
-});
 
 function addTrainningInHTML(trainning) {
 	$("#trainningList")
