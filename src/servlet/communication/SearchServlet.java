@@ -30,39 +30,21 @@ public class SearchServlet extends HttpServlet {
 	public SearchServlet() {
 		super();
 	}
-
-	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Format the answer
-		response.setContentType("application/json");
-		JSONObject jsonToSend;
-		jsonToSend = new JSONObject();
 		String search = request.getParameter("search");
-		
 		TrainningDao TDAO = new TrainningDao();
+		ExerciceDao EDAO = new ExerciceDao();
 		List<Trainning> listTrainning = TDAO.getListTrainningByName(search);
-		
-		Gson gson = new Gson();
-		String trainningsJSON = gson.toJson(listTrainning);
-	
-		jsonToSend.put("fluxRss", getFluxRss());
-		jsonToSend.put("trainningsJSON", trainningsJSON);// Send the Json object to the web browser
-		
-		PrintWriter out = response.getWriter();
-		out.write(jsonToSend.toString());
-	}*/
-	
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	String search = request.getParameter("search");
-	TrainningDao TDAO = new TrainningDao();
-	List<Trainning> listTrainning = TDAO.getListTrainningByName(search);
-		
+		List<Exercice> listExercice = EDAO.getListExerciceByName(search);
+
 		Gson gson = new Gson();
 		String TrainningJSON = gson.toJson(listTrainning);
+		String ExerciceJSON = gson.toJson(listExercice);
 		
-		String jsonToSend = "{ \"listTrainning\" : " +TrainningJSON + ", \"fluxrss\" : "+ getFluxRss() +" }";
-		//Send the Json object to the web browser
+		String jsonToSend = "{ \"listTrainning\" : " +TrainningJSON + ",\"listExercice\" : " +ExerciceJSON + ", \"fluxrss\" : "+ getFluxRss() +" }";
+
 		PrintWriter out= response.getWriter();
 		out.write(jsonToSend);
 	}

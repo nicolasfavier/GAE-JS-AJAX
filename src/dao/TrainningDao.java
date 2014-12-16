@@ -139,7 +139,6 @@ public class TrainningDao {
 	public List<Trainning> getListTrainningByName(String search){
 		
 		List<Trainning> TrainningMatchingName = new ArrayList<Trainning>();
-		int expectedTime = 0;
 		
 		Filter searchFilter = new FilterPredicate("title", FilterOperator.EQUAL, search);
 		Query q =  new Query("Trainning").setFilter(searchFilter);
