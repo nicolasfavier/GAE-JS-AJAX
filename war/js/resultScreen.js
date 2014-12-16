@@ -8,11 +8,41 @@ function getUrlParameter(sParam) {
 			return sParameterName[1];
 		}
 	}
+	
+	return null;
 }
 
 $(document).ready(function() {
-	search(getUrlParameter('search'));
+	if(getUrlParameter('search')){
+		search(getUrlParameter('search'));
+	}
+	else if (getUrlParameter('kind')){
+		searchKind(getUrlParameter('kind'));
+	}
+	else{
+		nullTrainningInHTML();
+		nullExInHTML();
+	}
 });
+
+function searchKind(kind) {
+	$.get("trainning", {
+		kind : kind
+	}, function(data, status) {
+		var obj = jQuery.parseJSON(data);
+		if (obj.length > 0) {
+			$.each(obj, function(key, value) {
+				addTrainningInHTML(value);
+				$.each(value.exercices, function(key, value) {
+					addExInHTML(value);
+				});
+			});
+		} else {
+			nullTrainningInHTML();
+			nullExInHTML();
+		}
+	});
+}
 
 function search(search) {
 		$.get("searchbyword", {
@@ -35,7 +65,9 @@ function search(search) {
 			} else {
 				nullExInHTML();
 			}
-		
+			
+			newsTitleInHTML();
+			
 			$.each(obj.fluxrss.responseData.feed.entries, function(key, value) {
 				addNewsInHTML(value);
 			});
@@ -54,6 +86,10 @@ function addTrainningInHTML(trainning) {
 							+ trainning.expectedTime + ' min.'
 							+ '</label></div>');
 
+}
+
+function newsTitleInHTML() {
+	$("#newsList").append("<h3>News</h3>");
 }
 
 function nullTrainningInHTML() {
