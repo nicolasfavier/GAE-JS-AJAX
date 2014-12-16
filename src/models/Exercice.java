@@ -8,8 +8,16 @@ public class Exercice {
 	private Long id;
 	private int duration;
 	private int repetition;
+	private Long trainningId;
 	
 	
+	
+	public Long getTrainningId() {
+		return trainningId;
+	}
+	public void setTrainningId(Long trainningId) {
+		this.trainningId = trainningId;
+	}
 	public Long getId() {
 		return id;
 	}

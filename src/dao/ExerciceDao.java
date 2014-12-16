@@ -33,12 +33,14 @@ public class ExerciceDao {
 		PreparedQuery pq = datastore.prepare(q);
 		
 		for(Entity exEntity : pq.asIterable()){
+			Long trainningId = exEntity.getParent().getId();
 			String titleEx = (String) exEntity.getProperty("title"); 
 			String descriptionEx = (String) exEntity.getProperty("description"); 
 			Long idExercice = (Long) exEntity.getKey().getId();
 			int duration = Ints.checkedCast((Long) exEntity.getProperty("duration"));
 			Exercice exercice = new Exercice();
 			
+			exercice.setTrainningId(trainningId);
 			exercice.setTitle(titleEx);
 			exercice.setDescription(descriptionEx);
 			exercice.setDuration(duration);
