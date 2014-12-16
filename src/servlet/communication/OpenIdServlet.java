@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Exercice;
 import models.PendingTrainning;
 
 import org.json.simple.JSONObject;
@@ -19,6 +20,8 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
+import dao.ExerciceDao;
+import dao.PendingExerciceDao;
 import dao.PendingTrainningDao;
 import dao.UserDao;
 
@@ -59,6 +62,11 @@ public class OpenIdServlet extends HttpServlet {
 			Long id = Long.decode("4996180836614144");
 			PendingTrainning pendingTraining = pendingTrainningDao.createOrGetPendingTrainning(id, u.getKey());
 			
+			PendingExerciceDao pendingExerciceDao = new PendingExerciceDao();
+			Long idEx = Long.decode("6122080743456768");
+			ExerciceDao exerciceDao = new ExerciceDao();
+			Exercice ex = exerciceDao.getExerciceById(idEx);
+			//PendingExercice pendingExercice = pendingExerciceDao.createOrGetPendingExercice(idEx, id);	
 			/******** TEST ********/
 			
 			
