@@ -51,13 +51,17 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	  $("#searchExercices").click(function(){
-		  alert("coucou");
 		  	$.get("searchbyword",
 	    		  {
 	    		    search: $("#searchExercicesInput").val()
 	    		  },
 	    		  function(data,status){
-	    		    alert("jsonNew " + data.fluxRss + "  trainings: " + data.trainningsJSON);
+	    		    alert("json " + data);
+	    		    var obj = jQuery.parseJSON( data );
+	    		    
+	    		    $.each(  obj.listTrainning, function( key, value ) {
+	    		    	  alert(value.title );
+	    		    	});
 	    		  });
 	  		});
 	});
