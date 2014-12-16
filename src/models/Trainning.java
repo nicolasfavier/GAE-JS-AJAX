@@ -89,6 +89,10 @@ public class Trainning {
 		}
 		public void setExercices(List<Exercice> exercices) {
 			this.exercices = exercices;
+			
+			for (Exercice exercice : this.exercices){
+				this.expectedTime += exercice.getDuration();
+			}
 		}
 		public Trainning(Date date, int expectedTime, Kind kind,
 				List<Exercice> exercices, Long id, String title, String description) {
