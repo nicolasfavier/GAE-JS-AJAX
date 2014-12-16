@@ -38,7 +38,7 @@
     <url-pattern>/trainning</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+  <servlet>
     <servlet-name>exercice</servlet-name>
     <servlet-class>servlet.communication.ExerciceServlet</servlet-class>
   </servlet>

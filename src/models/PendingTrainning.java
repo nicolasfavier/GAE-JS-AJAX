@@ -3,59 +3,61 @@ package models;
 import java.util.List;
 
 public class PendingTrainning {
-	private String KeyTrainning;
-	private String Key;
+	private Long id;
+	private Trainning trainning;
 	private List<PendingExercice> pendingExercice;
+	private boolean completed;
+	private int time;
 	
-	public String getKeyTrainning() {
-		return KeyTrainning;
+	public PendingTrainning(){
+		this.time = 0;
 	}
-	public String getKey() {
-		return Key;
+
+	public PendingTrainning(Long id, Trainning trainning,
+			List<PendingExercice> pendingExercice, boolean completed, int time) {
+		super();
+		this.id = id;
+		this.trainning = trainning;
+		this.pendingExercice = pendingExercice;
+		this.completed = completed;
+		this.time = time;
 	}
-	public void setKey(String key) {
-		Key = key;
+	public Long getId() {
+		return id;
 	}
-	public void setKeyTrainning(String keyTrainning) {
-		KeyTrainning = keyTrainning;
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Trainning getTrainning() {
+		return trainning;
+	}
+	public void setTrainning(Trainning trainning) {
+		this.trainning = trainning;
+	}
+	public boolean isCompleted() {
+		return completed;
+	}
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+	}
+	public int getTime() {
+		return time;
+	}
+	public void setTime(int time) {
+		this.time = time;
 	}
 	public List<PendingExercice> getPendingExercice() {
 		return pendingExercice;
 	}
 	public void setPendingExercice(List<PendingExercice> pendingExercice) {
 		this.pendingExercice = pendingExercice;
-	}
-	
-	public PendingTrainning(String keyTrainning, String key,
-			List<PendingExercice> pendingExercice) {
-		super();
-		KeyTrainning = keyTrainning;
-		Key = key;
-		this.pendingExercice = pendingExercice;
-	}
-	
-	public boolean isFinished(){
-		boolean res = true;
-		int i =0;
-		
-		for(i=0; i< pendingExercice.size(); i++)
-		{
-			if (pendingExercice.get(i).isFinish() == false){
-				res = false;
-			}
+		this.completed = true;
+		for (PendingExercice pendingEx : this.pendingExercice){
+			if (!pendingEx.isFinish())
+				this.completed = false;
+			
+			this.time += pendingEx.getTime();
 		}
-		return res;
-	}
-	
-	public int timeSpend(){
-		int res = 0;
-		int i =0;
-		
-		for(i=0; i< pendingExercice.size(); i++)
-		{
-			res += pendingExercice.get(i).getTime();
-		}
-		return res;
 	}
 	
 }

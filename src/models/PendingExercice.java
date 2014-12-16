@@ -4,20 +4,17 @@ public class PendingExercice {
 	
 	private int time;
 	private boolean finish;
-	private String KeyExercice; 
-	private String Key;
+	private Long id;
+	private Exercice exercice;
 	
-	public String getKeyExercice() {
-		return KeyExercice;
-	}
-	public void setKeyExercice(String keyExercice) {
-		KeyExercice = keyExercice;
-	}
-	public String getKey() {
-		return Key;
-	}
-	public void setKey(String key) {
-		Key = key;
+	public PendingExercice(){}
+	
+	public PendingExercice(int time, boolean finish, Long id, Exercice exercice) {
+		super();
+		this.time = time;
+		this.finish = finish;
+		this.id = id;
+		this.exercice = exercice;
 	}
 	public int getTime() {
 		return time;
@@ -31,15 +28,18 @@ public class PendingExercice {
 	public void setFinish(boolean finish) {
 		this.finish = finish;
 	}
-	
-	public PendingExercice(){}
-	
-	public PendingExercice(int time, boolean finish, String keyExercice,
-			String key) {
-		super();
-		this.time = time;
-		this.finish = finish;
-		KeyExercice = keyExercice;
-		Key = key;
+	public Long getId() {
+		return id;
 	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Exercice getExercice() {
+		return exercice;
+	}
+	public void setExercice(Exercice exercice) {
+		this.exercice = exercice;
+	}
+	
+	
 }
