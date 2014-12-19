@@ -5,3 +5,9 @@
 .margetitle{
 	padding-left: 50px;
 }
+
+.disabled{
+	color: white;
+	background-color: grey;
+	pointer-events:none;
+} 
