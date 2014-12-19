@@ -1,4 +1,5 @@
 var listExo = new Array();
+var pendingTrainningId = "";
 
 function getUrlParameter(sParam) {
 	var sPageURL = window.location.search.substring(1);
@@ -21,21 +22,35 @@ $(document).ready(function() {
 		$.get("pendingTrainning", {
 			id : trainningId
 		}, function(data, status) {
-			alert(data);
 			var obj = jQuery.parseJSON(data);
 			addTrainningByIdInHTML(obj);
 			
 			if (obj.pendingExercice.length > 0) {
+				var isFirst = true;
+				pendingTrainningId = obj.id;
 				$.each(obj.pendingExercice, function(key, value) {
-						addExerciseByIdInHTML(value)
+						if(value.finish){
+							addExerciseByIdInHTML(value, true)
+						}
+						else if(isFirst){
+							addExerciseByIdInHTML(value, true)
+							isFirst = false;
+						}
+						else{
+							addExerciseByIdInHTML(value, false)
+						}
+						
 						var clock =$('#flipcountdownbox' + value.id).FlipClock({
 							 autoStart: false,
-							    countdown: false
+							 countdown: false
 							});
+						
+						clock.setTime(value.time);
 						
 						var exerciceWraper = {
 								clock : clock,
-								id : value.id
+								id : value.id,
+								exercice : value
 						};
 						
 						listExo.push(exerciceWraper);
@@ -58,7 +73,7 @@ function runChrono(id){
 function stopChrono(id){
 	$.each( listExo, function( key, exerciceWraper ) {
         if(exerciceWraper.id === id){
-        	exerciceWraper.clock.stop();       	
+        	exerciceWraper.clock.stop();
         }
 	});
 }
@@ -72,18 +87,42 @@ function resetChrono(id){
 	});
 }
 
-function addTrainningByIdInHTML(trainning){
-
-	$( "#tabExercicesUser" ).append('<h2>'+ trainning.title +'<span class=" margetitle glyphicon glyphicon-time"></span>'+ trainning.expectedTime +'<h2>')
-			
+function finishExo(id){
+	var isnext = false;
+		
+	$.each( listExo, function( key, exerciceWraper ) {
+        if(exerciceWraper.id === id){
+        	exerciceWraper.clock.stop();
+        	var x = exerciceWraper.clock.getTime();
+        	exerciceWraper.exercice.time = (x - x % 60) / 60; 
+        	alert(exerciceWraper.exercice.time);
+        	exerciceWraper.exercice.finish = true;
+        	exerciceWraper.clock.stop();
+        	isnext = true;	
+        }
+        if(isnext){
+        	$("#td"+ exerciceWraper.id ).removeClass("disabled");
+        }
+	});
 }
 
-function addExerciseByIdInHTML(exercice){
+function addTrainningByIdInHTML(trainning){
+	$( "#tabExercicesUser" ).append('<h2>'+ trainning.title +'<span class=" margetitle glyphicon glyphicon-time"></span>'+ trainning.expectedTime +'<h2>')			
+}
+
+function addExerciseByIdInHTML(exercice, visible){
 	i = exercice.id;
+	var disable ="";
+	
+	if(!visible){
+		disable = "disabled";
+	}
+
+
 	$( "#tabExercicesUser" ).append( 
 			
 			'<tr>'+
-			'<td class=" col-md-12 col-sm-12 col-xs-12">'+
+			'<td id="td'+ i +'" class="'+ disable +' col-md-12 col-sm-12 col-xs-12">'+
 			'<div class="row">'+
 			    '<div class=" col-md-3 col-sm-12 col-xs-12 ">'+
 			        '<h3>'+ exercice.title +'</h3>'+
@@ -112,19 +151,29 @@ function addExerciseByIdInHTML(exercice){
 			    '</div>'+
 			'</div>'+
 			    '<div class=" col-md-2 ol-sm-5 col-xs-12 text-center" >'+
-			        '<button type="submit" class="btn btn-success btn-lg"> <span class="glyphicon glyphicon-ok"></span> </button>   '+ 
-			        '<button type="submit" class="btn btn-danger btn-sm"> <span class="glyphicon glyphicon-fast-forward"></span> </button>'+
+			        '<button onclick="finishExo('+ i +')" type="button" class="btn btn-success btn-lg"> <span class="glyphicon glyphicon-ok"></span> </button>   '+ 
+			        '<button onclick="finishExo('+ i +')" type="button" class="btn btn-danger btn-sm"> <span class="glyphicon glyphicon-fast-forward"></span> </button>'+
 			    '</div>'+
 			    
 			'</td>'+
 			'</tr>'
-
-	
 	);
 }
 
- $(document).ready(function(){
-		$("#playButton").click(function(){
-			clock.start();
-	   });
-	});	 
+function validateChange(){
+	
+	var listExoToSend = new Array();
+	
+    $.each( listExo, function( key, exerciceWraper ) {
+    	listExoToSend.push(exerciceWraper.exercice);
+	});
+    alert(pendingTrainningId);
+    
+	$.post("pendingTrainning", {
+		id : trainningId,
+		listExo : listExoToSend
+	}, function(data, status) {
+		
+		
+	});
+}
