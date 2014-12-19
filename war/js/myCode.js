@@ -33,7 +33,7 @@ $(document).ready(function(){
 		
 		$.ajax({
 			  type: "POST",
-			  url: "/trainning",
+			  url: "/addtrainning",
 			  dataType: "json",
 			  contentType: "application/json;charset=utf-8",
 			  traditional: true,
