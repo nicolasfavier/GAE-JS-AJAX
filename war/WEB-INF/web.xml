@@ -38,6 +38,16 @@
     <url-pattern>/trainning</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+    <servlet-name>task</servlet-name>
+    <servlet-class>servlet.communication.TaskServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>task</servlet-name>
+    <url-pattern>/addtrainning</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>pendingTrainning</servlet-name>
     <servlet-class>servlet.communication.PendingTrainningServlet</servlet-class>

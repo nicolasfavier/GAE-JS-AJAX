@@ -230,6 +230,7 @@ public class PendingTrainningDao {
 		pendingTrainning.setExpectedTime(trainning.getExpectedTime());
 		pendingTrainning.setTrainningId(trainning.getId());
 		pendingTrainning.setPendingExercice(listPendingEx);
+		pendingTrainning.setId(pendingTrainningEntity.getKey().getId());
 		
 		return pendingTrainning;
 	}
