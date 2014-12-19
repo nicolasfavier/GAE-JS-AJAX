@@ -48,8 +48,7 @@ public class PendingTrainningServlet extends HttpServlet {
 		
 		PrintWriter out= response.getWriter();
 		Gson gson = new Gson();
-		
-		if ( id!= null){
+		if ( id != null){
 			
 			UserService userService = UserServiceFactory.getUserService();
 			User user = userService.getCurrentUser(); // or req.getUserPrincipal()
@@ -67,6 +66,7 @@ public class PendingTrainningServlet extends HttpServlet {
 				out.write(pendingTrainningJSON);
 			}
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

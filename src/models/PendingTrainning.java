@@ -25,7 +25,6 @@ public class PendingTrainning {
 	}
 
 	public PendingTrainning(){
-		this.time = 0;
 	}
 
 	public Long getId() {
@@ -85,11 +84,14 @@ public class PendingTrainning {
 	public void setPendingExercice(List<PendingExercice> pendingExercice) {
 		this.pendingExercice = pendingExercice;
 		this.completed = true;
+		this.time = 0;
+		this.expectedTime = 0;
 		for (PendingExercice pendingEx : this.pendingExercice){
 			if (!pendingEx.isFinish())
 				this.completed = false;
 			
 			this.time += pendingEx.getTime();
+			this.expectedTime += pendingEx.getDuration();
 		}
 	}
 	
