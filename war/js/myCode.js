@@ -1,7 +1,7 @@
 var listExo = new Array();
 var id = 0;
 
-
+//quand l'ajout d'un plan d'entrainement est demandé
 $(document).ready(function(){
 	$("#btnCreateTraining").click(function(){
 		var listExercices = new Array();
@@ -18,6 +18,7 @@ $(document).ready(function(){
 				exercices : listExercices
 			};
 		
+		//post en ajax
 		$.ajax({
 			  type: "POST",
 			  url: "/addtrainning",
@@ -37,9 +38,11 @@ $(document).ready(function(){
 		var m =  parseInt($("#minput").val(),10);
 		var h =  parseInt($("#hinput").val(),10);
 		
+		//pour remplacé par zero si la valeur est NAN
 		m = m ? m : 0;
 		h = h ? h : 0;
 		
+		//pour avoir les minutes
 		var time = m + h *60;
 
 		var exercice = {
@@ -61,8 +64,9 @@ $(document).ready(function(){
    });
 });	  
 
+
+//création du code HTML dynamiquement
 function addExerciseInHTML( exerciceWraper){
-	
 	$( "#tabExercises" ).append( '<tr id="message'+ exerciceWraper.id +'">'+
 			"<td>"+ exerciceWraper.exercice.title + "</td>"+
 			'<td class="hidden-xs"><p>'+ exerciceWraper.exercice.description + "</p></td>"+
@@ -71,6 +75,8 @@ function addExerciseInHTML( exerciceWraper){
 			"</tr>" );
 }
 
+
+//addition des temps de tout les exercices
 function updateTime(){ 
 
 	var totalTimeM =0;
@@ -91,6 +97,8 @@ function updateTime(){
 	
 }
 
+
+//suprimer un exercice
 function deleteExercice(id){ 
 	var del;
 	
