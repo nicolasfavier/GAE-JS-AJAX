@@ -45,7 +45,7 @@ $(document).ready(function() {
 							 countdown: false
 							});
 						
-						clock.setTime(value.time);
+						clock.setTime(value.time*60);
 						
 						var exerciceWraper = {
 								clock : clock,
@@ -94,7 +94,7 @@ function finishExo(id){
         if(exerciceWraper.id === id){
         	exerciceWraper.clock.stop();
         	var x = exerciceWraper.clock.getTime();
-        	exerciceWraper.exercice.time = (x - x % 60) / 60; 
+        	exerciceWraper.exercice.time = (x - x % 60) / 60 +1; 
         	alert(exerciceWraper.exercice.time);
         	exerciceWraper.exercice.finish = true;
         	exerciceWraper.clock.stop();
@@ -167,13 +167,18 @@ function validateChange(){
     $.each( listExo, function( key, exerciceWraper ) {
     	listExoToSend.push(exerciceWraper.exercice);
 	});
-    alert(pendingTrainningId);
-    
-	$.post("pendingTrainning", {
-		id : trainningId,
-		listExo : listExoToSend
-	}, function(data, status) {
-		
-		
+    var pendingTrainning = {};
+    pendingTrainning.id = pendingTrainningId;
+    pendingTrainning.pendingExercice = listExoToSend;
+	$.ajax({
+		  type: "POST",
+		  url: "/pendingTrainning",
+		  dataType: "json",
+		  contentType: "application/json;charset=utf-8",
+		  traditional: true,
+		  data: JSON.stringify(pendingTrainning),
+		  success: function(data,status){
+			    alert("Post Done new training added");
+		  }
 	});
 }

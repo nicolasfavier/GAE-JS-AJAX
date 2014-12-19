@@ -134,28 +134,7 @@ public class PendingTrainningDao {
 				
 				listPendingEx.add(pendingExercice);
 			}
-			/*Trainning trainning = new Trainning();
-			trainning = trainningDao.getTrainningById(trainningIdEntity);
-			List<PendingExercice> listPendingEx = new ArrayList<PendingExercice>();
-			
-			for(Exercice ex : trainning.getExercices()){
-				
-				Entity pendingExerciceEntity = new Entity("pendingExercice", pendingTrainningEntity.getKey());
-				pendingExerciceEntity.setProperty("exerciceId", ex.getId());
-				pendingExerciceEntity.setProperty("time", 0);
-				pendingExerciceEntity.setProperty("finish", false);
-				
-				Key keyPendingEx = datastore.put(pendingExerciceEntity);
-				
-				PendingExercice pendingExercice = new PendingExercice();
-				pendingExercice.setTitle(ex.getTitle());
-				pendingExercice.setDescription(ex.getDescription());
-				pendingExercice.setDuration(ex.getDuration());
-				pendingExercice.setId(keyPendingEx.getId());
-				pendingExercice.setRepetition(ex.getRepetition());
-				listPendingEx.add(pendingExercice);
-			}
-			*/
+
 			pendingTrainning.setDate(trainning.getDate());
 			pendingTrainning.setDescription(trainning.getDescription());
 			pendingTrainning.setTitle(trainning.getTitle());

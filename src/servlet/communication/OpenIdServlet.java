@@ -58,9 +58,9 @@ public class OpenIdServlet extends HttpServlet {
 			
 			/******** TEST ********/
 			
-			PendingTrainningDao pendingTrainningDao = new PendingTrainningDao();
-			Long id = Long.decode("5647091720257536");
-			PendingTrainning pendingTraining = pendingTrainningDao.createOrGetPendingTrainning(id, u.getKey());
+			//PendingTrainningDao pendingTrainningDao = new PendingTrainningDao();
+			//Long id = Long.decode("5647091720257536");
+			//PendingTrainning pendingTraining = pendingTrainningDao.createOrGetPendingTrainning(id, u.getKey());
 			
 			//PendingExerciceDao pendingExerciceDao = new PendingExerciceDao();
 			//Long idEx = Long.decode("5084141766836224");
