@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import models.PendingTrainning;
+import models.Trainning;
 
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
@@ -23,6 +24,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 
 import dao.PendingTrainningDao;
+import dao.TrainningDao;
 import dao.UserDao;
 
 public class PendingTrainningServlet extends HttpServlet {
@@ -68,7 +70,25 @@ public class PendingTrainningServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser(); 
 
+		if (user != null) {
+			String nickNname = user.getNickname();
+			UserDao userDao = new UserDao();
+			models.User u = userDao.createUser(nickNname);
+				
+			PendingTrainningDao pendingTrainningDao = new PendingTrainningDao();
+	    	String bodyRequest = getBody(request);
+	    	Gson gson = new Gson();
+	    	PendingTrainning pendingTrainningSubmited = gson.fromJson(bodyRequest, PendingTrainning.class);
+	    	pendingTrainningDao.updatePendingTrainning(pendingTrainningSubmited, u.getKey());
+		    
+			//Send the Json object to the web browser
+			PrintWriter out= response.getWriter();
+			out.write("");
+		}
 	}
 	
 	public static String getBody(HttpServletRequest request) throws IOException {
