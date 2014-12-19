@@ -91,17 +91,17 @@ function finishExo(id){
 	var isnext = false;
 		
 	$.each( listExo, function( key, exerciceWraper ) {
+        if(isnext){
+        	$("#td"+ exerciceWraper.id ).removeClass("disabled");
+        	isnext = false;
+        }
         if(exerciceWraper.id === id){
         	exerciceWraper.clock.stop();
         	var x = exerciceWraper.clock.getTime();
         	exerciceWraper.exercice.time = (x - x % 60) / 60 +1; 
-        	alert(exerciceWraper.exercice.time);
         	exerciceWraper.exercice.finish = true;
         	exerciceWraper.clock.stop();
-        	isnext = true;	
-        }
-        if(isnext){
-        	$("#td"+ exerciceWraper.id ).removeClass("disabled");
+        	isnext = true;
         }
 	});
 }
@@ -167,7 +167,6 @@ function validateChange(){
     $.each( listExo, function( key, exerciceWraper ) {
     	listExoToSend.push(exerciceWraper.exercice);
 	});
-    var pendingTrainning = {};
     pendingTrainning.id = pendingTrainningId;
     pendingTrainning.pendingExercice = listExoToSend;
 	$.ajax({
